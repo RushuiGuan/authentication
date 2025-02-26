@@ -66,7 +66,7 @@ if ($tag -and $isDirty) {
 	Write-Error "Directory is dirty. Please commit or stash changes before tagging"
 }
 
-$version = devtools project-version -d $root -p="$prod"
+$version = devtools project-version --directory-build-props -d $root -p="$prod"
 if ($LASTEXITCODE -ne 0) {
 	Write-Error "Unable to get project version"
 }
@@ -75,8 +75,7 @@ try {
 	Write-Information "Cleaning up artifacts folder: $root\artifacts";
 	if (-not [System.IO.Directory]::Exists("$root\artifacts")) {
 		New-Item -ItemType Directory -Path "$root\artifacts"
-	}
- else {
+	} else {
 		Get-ChildItem $root\artifacts\*.nupkg | Remove-Item -Force
 	}
 	Write-Information "Version: $version";
@@ -85,8 +84,7 @@ try {
 	$repositoryProjectRoot = devtools read-project-property -f $PSScriptRoot\Directory.Build.props -p RepositoryProjectRoot
 	if ($LASTEXITCODE -ne 0) {
 		Write-Error "Unable to read RepositoryProjectRoot from the Directory.Build.props file";
-	}
- else {
+	} else {
 		$repositoryProjectRoot = $repositoryProjectRoot + "/README.md";
 	}
 	foreach ($project in $projects) {

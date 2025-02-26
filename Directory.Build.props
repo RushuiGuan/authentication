@@ -7,7 +7,7 @@
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<RepositoryUrl>https://github.com/RushuiGuan/authentication</RepositoryUrl>
-		<RepositoryProjectRoot>https://github.com/RushuiGuan/framework/tree/main</RepositoryProjectRoot>
+		<RepositoryProjectRoot>https://github.com/RushuiGuan/authentication/tree/main</RepositoryProjectRoot>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
