@@ -81,11 +81,11 @@ try {
 	Write-Information "Version: $version";
 	devtools set-project-version -d $root -ver $version
 	
-	$repositoryProjectRoot = devtools read-project-property -f $PSScriptRoot\Directory.Build.props -p RepositoryProjectRoot
+	$repositoryProjectRoot = devtools read-project-property -f $PSScriptRoot\Directory.Build.props -p RepositoryUrl
 	if ($LASTEXITCODE -ne 0) {
-		Write-Error "Unable to read RepositoryProjectRoot from the Directory.Build.props file";
+		Write-Error "Unable to read RepositoryUrl from the Directory.Build.props file";
 	} else {
-		$repositoryProjectRoot = $repositoryProjectRoot + "/README.md";
+		$repositoryProjectRoot = $repositoryProjectRoot + "/tree/main/README.md";
 	}
 	foreach ($project in $projects) {
 		# first fix the README.md file
