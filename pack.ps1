@@ -138,6 +138,7 @@ try {
 	}
 }
 finally {
+	devtools format-xml -f $root\Directory.Build.props
 	Get-ChildItem $root\*.csproj -recurse | ForEach-Object { 
 		devtools format-xml -f $_.FullName
 	}
