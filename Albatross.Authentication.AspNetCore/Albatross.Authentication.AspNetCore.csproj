@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<Description>The assembly contains the AspNetCore implementation of IGetCurrentUser interface.  It retrieves the current user name using AspNetCore HttpContext.</Description>
-		<PackageProjectUrl>$(RepositoryProjectRoot)/authentication/Albatross.Authentication.AspNetCore</PackageProjectUrl>
+		<PackageProjectUrl>$(RepositoryProjectRoot)/Albatross.Authentication.AspNetCore</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
