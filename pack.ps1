@@ -125,8 +125,8 @@ try {
 			if ($LASTEXITCODE -ne 0) {
 				Write-Error "Error bumping version";
 			}
-			Set-Content -Path $root\.version -Value $version;
-			git commit -m "Bump version of $directoryName to $version" $root\.version;
+			devtools set-project-version -d $root -ver $version
+			git commit -m "Bump version of $directoryName to $version" $root\Directory.Build.props;
 		}
 	}
 	if (-not [string]::IsNullOrEmpty($env:LocalNugetSource)) {
@@ -137,7 +137,7 @@ try {
 	}
 }
 finally {
-	devtools remove-project-version -d $root
+	
 	Get-ChildItem $root\*.csproj -recurse | ForEach-Object { 
 		devtools format-xml -f $_.FullName
 	}
