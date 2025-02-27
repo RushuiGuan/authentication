@@ -127,6 +127,7 @@ try {
 				Write-Error "Error bumping version";
 			}
 			devtools set-project-version -d $root -ver $version
+			devtools format-xml -f $root\Directory.Build.props
 			git commit -m "Bump version of $directoryName to $version" $root\Directory.Build.props;
 		}
 	}
