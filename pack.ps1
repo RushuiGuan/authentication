@@ -65,7 +65,7 @@ if ($prod -and -not $force -and $isDirty) {
 if ($tag -and $isDirty) {
 	Write-Error "Directory is dirty. Please commit or stash changes before tagging"
 }
-
+$oldVersion = devtools read-project-property -f $root\Directory.Build.props -p Version
 $version = devtools project-version --directory-build-props -d $root -p="$prod"
 if ($LASTEXITCODE -ne 0) {
 	Write-Error "Unable to get project version"
@@ -110,6 +110,7 @@ try {
 			Remove-Item $tmp -Force
 		}
 	}
+	devtools set-project-version -d $root -ver $oldVersion
 	if ($tag -and $projects.Length -ne 0) {
 		$directoryName = Split-Path $root -Leaf
 		$version = devtools build-version -ver $version -clear-meta
@@ -137,7 +138,6 @@ try {
 	}
 }
 finally {
-	
 	Get-ChildItem $root\*.csproj -recurse | ForEach-Object { 
 		devtools format-xml -f $_.FullName
 	}
