@@ -1,4 +1,5 @@
 ﻿namespace Albatross.Authentication.Windows {
+	[Obsolete("Use GetCurrentWindowsLogin instead.")]
 	public class GetCurrentWindowsUser : IGetCurrentUser {
 		public string Provider => "Windows";
 
