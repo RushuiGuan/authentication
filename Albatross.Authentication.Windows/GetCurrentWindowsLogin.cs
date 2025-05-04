@@ -2,7 +2,7 @@
 	public class GetCurrentWindowsLogin : IGetCurrentLogin {
 		public ILogin? Get() {
 			var identity = System.Security.Principal.WindowsIdentity.GetCurrent();
-			return new ActiveDirectoryLogin(identity.Claims);
+			return new WindowsLogin(identity);
 		}
 	}
 }
