@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Albatross.Authentication {
+namespace Albatross.Authentication.AspNetCore {
 	public record ActiveDirectoryLogin : ILogin {
 		public string Provider => "ActiveDirectory";
 		public ActiveDirectoryLogin(IEnumerable<Claim> claims) {
