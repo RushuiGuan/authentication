@@ -14,6 +14,6 @@ namespace Sample.Api.Controllers {
 
 		[HttpGet]
 		[Authorize]
-		public Login? Get() => getCurrent.Get();
+		public ILogin? Get() => getCurrent.Get();
 	}
 }
