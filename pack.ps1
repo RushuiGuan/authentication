@@ -17,6 +17,13 @@ $InformationPreference = "Continue";
 $ErrorActionPreference = "Stop";
 Set-StrictMode -Version Latest;
 
+function Join(
+	[string[]]$array
+) {
+	return [System.IO.Path]::Join($array);
+}
+
+
 $root = Resolve-Path -Path $directory;
 
 if (-not [System.IO.Directory]::Exists($root)) {
@@ -26,21 +33,22 @@ else {
 	Write-Information "Project directory: $root"
 }
 
-if (-not [System.IO.File]::Exists("$root\.projects")) {
+
+if (-not [System.IO.File]::Exists((Join $root, .projects))) {
 	Write-Error ".projects file not found"
 }
 
-$testProjects = devtools project-list -f "$root\.projects" -h tests
+$testProjects = devtools project-list -f (Join $root,  .projects) -h tests
 Write-Information "Test projects: $($testProjects -join ', ')"
 
-$projects = devtools project-list -f "$root\.projects" -h packages
+$projects = devtools project-list -f (Join $root, .projects) -h packages
 Write-Information "Projects: $($projects -join ', ')"
 
 if (-not $skipTest) {
 	# run the test projects
 	foreach ($item in $testProjects) {
 		"Testing $item";
-		dotnet test $root\$item\$item.csproj -c release
+		dotnet test (join $root, $item, "$item.csproj") -c release
 		if ($LASTEXITCODE -ne 0) {
 			Write-Error "Test failed for $item"
 		}
@@ -65,23 +73,23 @@ if ($prod -and -not $force -and $isDirty) {
 if ($tag -and $isDirty) {
 	Write-Error "Directory is dirty. Please commit or stash changes before tagging"
 }
-$oldVersion = devtools read-project-property -f $root\Directory.Build.props -p Version
+$oldVersion = devtools read-project-property -f (Join $root, Directory.Build.props) -p Version
 $version = devtools project-version --directory-build-props -d $root -p="$prod"
 if ($LASTEXITCODE -ne 0) {
 	Write-Error "Unable to get project version"
 }
 try {
 	# first clean up the artifacts folder
-	Write-Information "Cleaning up artifacts folder: $root\artifacts";
-	if (-not [System.IO.Directory]::Exists("$root\artifacts")) {
-		New-Item -ItemType Directory -Path "$root\artifacts"
+	Write-Information "Cleaning up artifacts folder: $(Join $root, artifacts)";
+	if (-not [System.IO.Directory]::Exists((Join $root, artifacts))) {
+		New-Item -ItemType Directory -Path (Join $root, artifacts)
 	} else {
-		Get-ChildItem $root\artifacts\*.nupkg | Remove-Item -Force
+		Get-ChildItem (Join $root, artifacts, *.nupkg) | Remove-Item -Force
 	}
 	Write-Information "Version: $version";
 	devtools set-project-version -d $root -ver $version
 	
-	$repositoryProjectRoot = devtools read-project-property -f $PSScriptRoot\Directory.Build.props -p RepositoryUrl
+	$repositoryProjectRoot = devtools read-project-property -f (Join $PSScriptRoot, Directory.Build.props) -p RepositoryUrl
 	if ($LASTEXITCODE -ne 0) {
 		Write-Error "Unable to read RepositoryUrl from the Directory.Build.props file";
 	} else {
@@ -89,7 +97,7 @@ try {
 	}
 	foreach ($project in $projects) {
 		# first fix the README.md file
-		$readme = "$root\$project\README.md";
+		$readme = (Join $root, $project, README.md);
 		$tmp = [System.IO.Path]::GetTempFileName()
 		Copy-Item $readme $tmp -Force
 		try {
@@ -100,7 +108,7 @@ try {
 				}
 			}
 			"Building $project";
-			dotnet pack $root\$project\$project.csproj -c release -o $root\artifacts
+			dotnet pack (Join $root, $project, "$project.csproj") -c release -o (Join $root, artifacts)
 			if ($LASTEXITCODE -ne 0) {
 				Write-Error "Build failed for $project"
 			}
@@ -127,20 +135,20 @@ try {
 				Write-Error "Error bumping version";
 			}
 			devtools set-project-version -d $root -ver $version
-			devtools format-xml -f $root\Directory.Build.props
-			git commit -m "Bump version of $directoryName to $version" $root\Directory.Build.props;
+			devtools format-xml -f (Join $root, Directory.Build.props)
+			git commit -m "Bump version of $directoryName to $version" (Join $root, Directory.Build.props);
 		}
 	}
 	if (-not [string]::IsNullOrEmpty($env:LocalNugetSource)) {
-		nuget push $root\artifacts\*.nupkg -Source $env:LocalNugetSource
+		nuget push (Join $root, artifacts, *.nupkg) -Source $env:LocalNugetSource
 	}
 	if ($push) {
-		nuget push $root\artifacts\*.nupkg -Source staging -ApiKey az;
+		nuget push (Join $root, artifacts, *.nupkg) -Source staging -ApiKey az;
 	}
 }
 finally {
-	devtools format-xml -f $root\Directory.Build.props
-	Get-ChildItem $root\*.csproj -recurse | ForEach-Object { 
+	devtools format-xml -f (Join $root, Directory.Build.props)
+	Get-ChildItem (Join $root, *.csproj) -recurse | ForEach-Object { 
 		devtools format-xml -f $_.FullName
 	}
 }
