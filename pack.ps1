@@ -140,10 +140,10 @@ try {
 		}
 	}
 	if (-not [string]::IsNullOrEmpty($env:LocalNugetSource)) {
-		nuget push (Join $root, artifacts, *.nupkg) -Source $env:LocalNugetSource
+		dotnet nuget push (Join $root, artifacts, *.nupkg) --source $env:LocalNugetSource
 	}
 	if ($push) {
-		nuget push (Join $root, artifacts, *.nupkg) -Source staging -ApiKey az;
+		dotnet nuget push (Join $root, artifacts, *.nupkg) --source staging -ApiKey az;
 	}
 }
 finally {
