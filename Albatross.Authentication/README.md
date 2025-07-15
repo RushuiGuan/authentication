@@ -1,7 +1,11 @@
-# Albatross.Authentication
-A shared assembly whose sole purpose is to return the identify of the current user.
+# About
+An assembly that returns the identity of the current user.
 
 # Features
+* [ILogin](./ILogin.cs) interface that represents a user login with the following properties:
+  * Issuer: The issuer of the login (e.g., "Windows", "htts://accounts.google.com").
+  * Subject: The id of the login
+  * Name: The name of the login
 * [IGetCurrentLogin](./IGetCurrentLogin.cs) interface that returns the login of the current user.
 
 # Implementations

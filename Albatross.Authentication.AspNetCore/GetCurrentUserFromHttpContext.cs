@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 
 namespace Albatross.Authentication.AspNetCore {
-	[Obsolete("Use GetCurrentLoginFromHttpContext")]
 	public class GetCurrentUserFromHttpContext : IGetCurrentUser {
-		IHttpContextAccessor httpContextAccessor;
+		readonly IHttpContextAccessor httpContextAccessor;
 		public GetCurrentUserFromHttpContext(IHttpContextAccessor httpContextAccessor) {
 			this.httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
 		}
