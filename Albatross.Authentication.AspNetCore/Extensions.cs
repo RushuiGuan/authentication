@@ -9,9 +9,7 @@ namespace Albatross.Authentication.AspNetCore {
 			services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoginFactory, GoogleLoginFactory>());
 			services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoginFactory, OnPremiseActiveDirectoryLoginFactory>());
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-#pragma warning disable CS0618 // Type or member is obsolete
 			services.AddSingleton<IGetCurrentUser, GetCurrentUserFromHttpContext>();
-#pragma warning restore CS0618 // Type or member is obsolete
 			services.AddSingleton<IGetCurrentLogin, GetCurrentLoginFromHttpContext>();
 			return services;
 		}
