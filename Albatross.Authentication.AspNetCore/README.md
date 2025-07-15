@@ -28,7 +28,6 @@ public class TwitterLoginFactory : ILoginFactory {
 		return login;
 	}
 }
-// not register this factory in your di registration container
+// now register this factory in your di registration container
 services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoginFactory, TwitterLoginFactory>());
 ```
-

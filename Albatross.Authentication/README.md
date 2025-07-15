@@ -7,6 +7,7 @@ An assembly that returns the identity of the current user.
   * Subject: The id of the login
   * Name: The name of the login
 * [IGetCurrentLogin](./IGetCurrentLogin.cs) interface that returns the login of the current user.
+* [IGetCurrentUser](./IGetCurrentUser.cs) interface that return the string identity of the current user.  The interface is considered as legacy and are used in a windows domain environment.
 
 # Implementations
 * [Albatross.Authentication.AspNetCore](../Albatross.Authentication.AspNetCore/)
