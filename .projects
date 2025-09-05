@@ -1,7 +1,10 @@
-# Tests
+# tests
 Albatross.Authentication.UnitTest
 
-#Packages
+# packages
 Albatross.Authentication
 Albatross.Authentication.AspNetCore
 Albatross.Authentication.Windows
+
+# services
+Sample.Api
