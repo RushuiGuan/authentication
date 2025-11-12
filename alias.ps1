@@ -1,0 +1,1 @@
+set-alias -name api -value $env:InstallDirectory\Sample.Api\Sample.Api.exe

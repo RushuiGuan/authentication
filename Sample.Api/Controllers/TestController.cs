@@ -13,7 +13,7 @@ namespace Sample.Api.Controllers {
 		}
 
 		[HttpGet]
-		[Authorize]
+		[Authorize("Google")]
 		public ILogin? Get() => getCurrent.Get();
 	}
 }
