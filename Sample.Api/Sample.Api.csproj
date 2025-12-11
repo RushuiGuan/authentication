@@ -10,7 +10,7 @@
 		<Content Remove="C:\Users\rushui2020\.nuget\packages\albatross.hosting\8.0.5-32.main\contentFiles\any\net8.0\serilog.json" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Albatross.Hosting" Version="9.0.4" />
+		<PackageReference Include="Albatross.Hosting" Version="9.0.7" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Albatross.Authentication.AspNetCore\Albatross.Authentication.AspNetCore.csproj" />
