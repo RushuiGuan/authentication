@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path=".projects" />
+    <File Path="alias.ps1" />
+    <File Path="Directory.Build.props" />
+    <File Path="icon.png" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+    <File Path="release-notes.md" />
+  </Folder>
+  <Project Path="Albatross.Authentication.AspNetCore/Albatross.Authentication.AspNetCore.csproj" />
+  <Project Path="Albatross.Authentication.UnitTest/Albatross.Authentication.UnitTest.csproj" />
+  <Project Path="Albatross.Authentication.Windows/Albatross.Authentication.Windows.csproj" />
+  <Project Path="Albatross.Authentication/Albatross.Authentication.csproj" />
+  <Project Path="Sample.Api/Sample.Api.csproj" />
+</Solution>
