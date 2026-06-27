@@ -3,14 +3,14 @@ using Xunit;
 
 namespace Albatross.Authentication.UnitTest {
 	public class TestWindowsAuthentication {
-		[Fact]
+		[WindowsFact]
 		public void Run() {
 			var user = new Windows.GetCurrentWindowsUser().Get();
 			Assert.Equal(Environment.UserName, user);
 		}
 
 
-		[Fact]
+		[WindowsFact]
 		public void TestLogin() {
 			var login = new Windows.GetCurrentWindowsLogin().Get();
 			Assert.NotNull(login);
